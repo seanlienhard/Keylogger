@@ -48,7 +48,7 @@ namespace M183_SQLInjection.Controllers
             var passwordFromView = Request["password"];
 
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Jerome\\Documents\\sql_xss_injection.mdf;Integrated Security=True;Connect Timeout=30"; //TODO Connectionstring anpassen!
+            con.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Sean\\Documents\\sql_xss_injection.mdf;Integrated Security=True;Connect Timeout=30"; //TODO Connectionstring anpassen!
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 
